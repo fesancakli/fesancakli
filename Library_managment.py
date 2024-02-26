@@ -6,19 +6,17 @@ class Library:
     def __del__(self):
         self.file.close()
         print("Library closed.")
-
     def list_all_books(self):
-        all_info = []
         with open("books.txt", "r") as file1:
             all_lines = file1.readlines()
-            if len(all_lines) == 0:
+            if not all_lines:
                 print("Library is empty!!!")
                 return
-            for i in range(len(all_lines)):
-                all_info.append(all_lines[i].strip().split(","))
-                if len(all_info) >1:
-                    print("Title : ",all_info[i][0])
-                    print("Author Name : ",all_info[i][1])
+
+        for line in all_lines:
+            title, author, _, _ = map(str.strip, line.split(","))
+            print("Title:", title)
+            print("Author Name:", author)
 
     def add_book(self):
         book_title = input("Enter the book title : ")
